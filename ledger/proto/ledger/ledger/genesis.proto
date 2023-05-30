@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package ledger.ledger;
+
+import "gogoproto/gogo.proto";
+import "ledger/ledger/params.proto";
+import "ledger/ledger/tstmt.proto";
+import "ledger/ledger/cids.proto";
+
+option go_package = "ledger/x/ledger/types";
+
+// GenesisState defines the ledger module's genesis state.
+message GenesisState {
+           Params params    = 1 [(gogoproto.nullable) = false];
+  repeated Tstmt  tstmtList = 2 [(gogoproto.nullable) = false];
+  repeated Cids   cidsList  = 3 [(gogoproto.nullable) = false];
+           uint64 cidsCount = 4;
+}
+

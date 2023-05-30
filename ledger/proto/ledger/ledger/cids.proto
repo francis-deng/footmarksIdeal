@@ -1,0 +1,10 @@
+syntax = "proto3";
+package ledger.ledger;
+
+option go_package = "ledger/x/ledger/types";
+
+message Cids {
+  uint64 id = 1;
+  string cid = 2; 
+  
+}

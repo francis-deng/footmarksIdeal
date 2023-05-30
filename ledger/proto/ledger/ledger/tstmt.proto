@@ -1,0 +1,16 @@
+syntax = "proto3";
+package ledger.ledger;
+
+option go_package = "ledger/x/ledger/types";
+
+message Tstmt {
+  string index = 1; 
+  string payor = 2; 
+  string payee = 3; 
+  string denom = 4; 
+  uint64 q = 5; 
+  uint64 ts = 6; 
+  string cid = 7; 
+  
+}
+

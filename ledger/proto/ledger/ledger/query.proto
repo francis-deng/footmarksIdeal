@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package ledger.ledger;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "ledger/ledger/params.proto";
+import "ledger/ledger/tstmt.proto";
+import "ledger/ledger/cids.proto";
+
+option go_package = "ledger/x/ledger/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  
+  // Parameters queries the parameters of the module.
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/ledger/ledger/params";
+  
+  }
+  
+  // Queries a list of Tstmt items.
+  rpc Tstmt    (QueryGetTstmtRequest) returns (QueryGetTstmtResponse) {
+    option (google.api.http).get = "/ledger/ledger/tstmt/{index}";
+  
+  }
+  rpc TstmtAll (QueryAllTstmtRequest) returns (QueryAllTstmtResponse) {
+    option (google.api.http).get = "/ledger/ledger/tstmt";
+  
+  }
+  
+  // Queries a list of Cids items.
+  rpc Cids    (QueryGetCidsRequest) returns (QueryGetCidsResponse) {
+    option (google.api.http).get = "/ledger/ledger/cids/{id}";
+  
+  }
+  rpc CidsAll (QueryAllCidsRequest) returns (QueryAllCidsResponse) {
+    option (google.api.http).get = "/ledger/ledger/cids";
+  
+  }
+}
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetTstmtRequest {
+  string index = 1;
+}
+
+message QueryGetTstmtResponse {
+  Tstmt tstmt = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllTstmtRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllTstmtResponse {
+  repeated Tstmt                                  tstmt      = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetCidsRequest {
+  uint64 id = 1;
+}
+
+message QueryGetCidsResponse {
+  Cids Cids = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCidsRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCidsResponse {
+  repeated Cids                                   Cids       = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
